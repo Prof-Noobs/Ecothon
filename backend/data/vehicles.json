@@ -1,0 +1,17 @@
+[
+  {
+    "vehicleId": 1,
+    "name": "Tata Nexon Petrol",
+    "type": "petrol",
+    "manufacturingEmission": 6000,
+    "emissionPerKm": 0.192
+  },
+  {
+    "vehicleId": 2,
+    "name": "Tata Nexon EV",
+    "type": "ev",
+    "manufacturingEmission": 8000,
+    "batteryEmission": 3000,
+    "energyConsumptionPerKm": 0.15
+  }
+]
