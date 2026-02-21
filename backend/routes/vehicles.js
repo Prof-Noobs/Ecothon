@@ -54,22 +54,36 @@ router.post("/calculate", async (req, res) => {
 // POST /recommend - best vehicle
 router.post("/recommend", async (req, res) => {
   try {
-    let { dailyKm, years, city } = req.body;
+    let { dailyKm, years, city, minPrice, maxPrice } = req.body;
 
     dailyKm = Number(dailyKm);
     years = Number(years);
+    minPrice = Number(minPrice);
+    maxPrice = Number(maxPrice);
 
     if (!city) return res.status(400).json({ error: "City is required" });
     if (isNaN(dailyKm) || isNaN(years) || dailyKm <= 0 || years <= 0) {
       return res.status(400).json({ error: "Invalid dailyKm or years" });
     }
+    if (isNaN(minPrice) || isNaN(maxPrice) || minPrice < 0 || maxPrice < minPrice) {
+     return res.status(400).json({ error: "Invalid price range" });
+    }
+    
 
     const cityData = await City.findOne({ name: city });
     if (!cityData) return res.status(404).json({ error: "City not found" });
 
     const gridFactor = cityData.gridEmissionFactor;
 
-    const results = vehicles.map(vehicle => {
+    const filteredVehicles = vehicles.filter(vehicle =>
+    vehicle.price >= minPrice && vehicle.price <= maxPrice
+    );
+
+    if (filteredVehicles.length === 0) {
+    return res.status(404).json({ error: "No vehicles found in this price range" });
+    }
+
+    const results = filteredVehicles.map(vehicle => {
       let totalCarbon = 0;
 
       if (vehicle.type === "petrol" || vehicle.type === "diesel") {
@@ -79,7 +93,12 @@ router.post("/recommend", async (req, res) => {
         totalCarbon = vehicle.manufacturingEmission + vehicle.batteryEmission + usage;
       }
 
-      return { name: vehicle.name, type: vehicle.type, totalCarbon };
+      return { 
+        name: vehicle.name, 
+        type: vehicle.type, 
+        price: vehicle.price,
+        totalCarbon 
+      };
     });
 
     results.sort((a, b) => a.totalCarbon - b.totalCarbon);
