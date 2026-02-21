@@ -77,6 +77,8 @@ function InputForm({ setResult, setRecommendation }) {
   const [city, setCity] = useState("");
   const [avgKm, setAvgKm] = useState("");
   const [years, setYears] = useState("");
+  const [minPrice, setMinPrice] = useState("");
+  const [maxPrice, setMaxPrice] = useState("");
 
   // Handle Compare button (existing functionality)
   const handleSubmit = async (e) => {
@@ -104,33 +106,43 @@ function InputForm({ setResult, setRecommendation }) {
 
   // Handle Recommend Best Vehicle button
   const handleRecommendClick = async () => {
-    if (!city || !avgKm || !years) {
-      alert("Please fill all fields first");
-      return;
-    }
+  if (!city || !avgKm || !years || !minPrice || !maxPrice) {
+    alert("Please fill all fields including budget");
+    return;
+  }
 
-    try {
-      const res = await axios.post("http://localhost:5000/api/vehicles/recommend", {
+  // ✅ ADD THIS RIGHT HERE
+  if (Number(maxPrice) < Number(minPrice)) {
+    alert("Maximum price cannot be less than minimum price");
+    return;
+  }
+
+  try {
+    const res = await axios.post(
+      "http://localhost:5000/api/vehicles/recommend",
+      {
         city,
         dailyKm: Number(avgKm),
         years: Number(years),
-      });
-
-      console.log("Recommendation API RESPONSE:", res.data);
-
-      // If App.jsx passed setRecommendation, update state there
-      if (typeof setRecommendation === "function") {
-        setRecommendation(res.data);
-      } else {
-        alert(
-          `Recommended Vehicle: ${res.data.recommended.name} (${res.data.recommended.type.toUpperCase()})`
-        );
+        minPrice: Number(minPrice),
+        maxPrice: Number(maxPrice),
       }
-    } catch (error) {
-      console.error(error);
-      alert("Error fetching recommendation from backend");
+    );
+
+    console.log("Recommendation API RESPONSE:", res.data);
+
+    if (typeof setRecommendation === "function") {
+      setRecommendation(res.data);
+    } else {
+      alert(
+        `Recommended Vehicle: ${res.data.recommended.name} (${res.data.recommended.type.toUpperCase()})`
+      );
     }
-  };
+  } catch (error) {
+    console.error("BACKEND ERROR:", error.response?.data);
+    alert(error.response?.data?.error || "Error fetching recommendation");
+  }
+};
 
   return (
     <form
@@ -179,6 +191,26 @@ function InputForm({ setResult, setRecommendation }) {
       >
         Compare
       </button>
+
+    <div>
+  <label>Minimum Budget:</label>
+  <input
+    type="number"
+    value={minPrice}
+    onChange={(e) => setMinPrice(e.target.value)}
+    placeholder="Enter minimum price"
+  />
+</div>
+
+<div>
+  <label>Maximum Budget:</label>
+  <input
+    type="number"
+    value={maxPrice}
+    onChange={(e) => setMaxPrice(e.target.value)}
+    placeholder="Enter maximum price"
+  />
+</div>
 
       <button
         type="button"

@@ -85,6 +85,9 @@ function Recommend() {
           <p className="mb-1">
             <strong>Total CO₂:</strong> {recommendation.recommended.totalCarbon.toFixed(2)} kg
           </p>
+          <p className="mb-1">
+            <strong>Price:</strong> Rs.{recommendation.recommended.price || "Not Available"}
+          </p>
           <p className="mt-2 text-gray-700">
             <strong>Why we chose this car:</strong> It has the lowest total carbon emissions 
             based on your city, daily usage, and years of ownership, compared to all other vehicles.
