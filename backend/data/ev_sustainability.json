@@ -1,0 +1,26 @@
+[
+  {
+    "name": "Tata Nexon EV",
+    "type": "ev",
+    "price": 1100000,
+    "energyConsumptionPerKm": 0.15,
+    "manufacturingEmission": 10000,
+    "batteryEmission": 5000
+  },
+  {
+    "name": "MG ZS EV",
+    "type": "ev",
+    "price": 1200000,
+    "energyConsumptionPerKm": 0.18,
+    "manufacturingEmission": 11000,
+    "batteryEmission": 6000
+  },
+  {
+    "name": "Hyundai Kona EV",
+    "type": "ev",
+    "price": 1500000,
+    "energyConsumptionPerKm": 0.17,
+    "manufacturingEmission": 12000,
+    "batteryEmission": 7000
+  }
+]

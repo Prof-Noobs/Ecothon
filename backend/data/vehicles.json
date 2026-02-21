@@ -1,17 +1,110 @@
 [
   {
-    "vehicleId": 1,
-    "name": "Tata Nexon Petrol",
-    "type": "petrol",
-    "manufacturingEmission": 6000,
-    "emissionPerKm": 0.192
-  },
-  {
-    "vehicleId": 2,
+    "vehicleId": "tata-nexon-ev",
     "name": "Tata Nexon EV",
     "type": "ev",
-    "manufacturingEmission": 8000,
-    "batteryEmission": 3000,
-    "energyConsumptionPerKm": 0.15
+    "price": 1100000,
+    "energyConsumptionPerKm": 0.15,
+    "manufacturingEmission": 10000,
+    "batteryEmission": 5000
+  },
+  {
+    "vehicleId": "mg-zs-ev",
+    "name": "MG ZS EV",
+    "type": "ev",
+    "price": 1200000,
+    "energyConsumptionPerKm": 0.18,
+    "manufacturingEmission": 11000,
+    "batteryEmission": 6000
+  },
+  {
+    "vehicleId": "hyundai-kona-ev",
+    "name": "Hyundai Kona EV",
+    "type": "ev",
+    "price": 1500000,
+    "energyConsumptionPerKm": 0.17,
+    "manufacturingEmission": 12000,
+    "batteryEmission": 7000
+  },
+  {
+    "vehicleId": "tata-tigor-ev",
+    "name": "Tata Tigor EV",
+    "type": "ev",
+    "price": 950000,
+    "energyConsumptionPerKm": 0.14,
+    "manufacturingEmission": 9500,
+    "batteryEmission": 4500
+  },
+  {
+    "vehicleId": "maruti-swift",
+    "name": "Maruti Swift",
+    "type": "petrol",
+    "price": 800000,
+    "mileage": 18,
+    "emissionPerKm": 0.18,
+    "manufacturingEmission": 6000
+  },
+  {
+    "vehicleId": "hyundai-i20",
+    "name": "Hyundai i20",
+    "type": "petrol",
+    "price": 850000,
+    "mileage": 17,
+    "emissionPerKm": 0.185,
+    "manufacturingEmission": 6000
+  },
+  {
+    "vehicleId": "honda-amaze",
+    "name": "Honda Amaze",
+    "type": "diesel",
+    "price": 900000,
+    "mileage": 22,
+    "emissionPerKm": 0.15,
+    "manufacturingEmission": 6000
+  },
+  {
+    "vehicleId": "tata-tiago",
+    "name": "Tata Tiago",
+    "type": "petrol",
+    "price": 700000,
+    "mileage": 19,
+    "emissionPerKm": 0.17,
+    "manufacturingEmission": 5800
+  },
+  {
+    "vehicleId": "maruti-brezza",
+    "name": "Maruti Vitara Brezza",
+    "type": "petrol",
+    "price": 900000,
+    "mileage": 16,
+    "emissionPerKm": 0.19,
+    "manufacturingEmission": 6200
+  },
+  {
+    "vehicleId": "mahindra-e-verito",
+    "name": "Mahindra e-Verito",
+    "type": "ev",
+    "price": 1000000,
+    "energyConsumptionPerKm": 0.16,
+    "manufacturingEmission": 10500,
+    "batteryEmission": 5000
+  },
+  {
+    "vehicleId": "kia-sonet",
+    "name": "Kia Sonet",
+    "type": "petrol",
+    "price": 950000,
+    "mileage": 16.5,
+    "emissionPerKm": 0.18,
+    "manufacturingEmission": 6100
+  },
+  {
+    "vehicleId": "renault-kwid",
+    "name": "Renault Kwid",
+    "type": "petrol",
+    "price": 400000,
+    "mileage": 20,
+    "emissionPerKm": 0.16,
+    "manufacturingEmission": 5500
   }
 ]

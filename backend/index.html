@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Carbon Lifecycle Comparison</title>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: #f4f6f9;
+    }
+
+    .container {
+      max-width: 1100px;
+      margin: auto;
+      padding: 20px;
+    }
+
+    h1 {
+      text-align: center;
+      margin-bottom: 30px;
+    }
+
+    .card {
+      background: white;
+      padding: 20px;
+      border-radius: 12px;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+      margin-bottom: 20px;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 15px;
+    }
+
+    input {
+      padding: 10px;
+      border-radius: 8px;
+      border: 1px solid #ccc;
+      width: 100%;
+    }
+
+    button {
+      padding: 10px;
+      border-radius: 8px;
+      border: none;
+      background: #2d89ef;
+      color: white;
+      cursor: pointer;
+      font-weight: bold;
+    }
+
+    button:hover {
+      opacity: 0.9;
+    }
+
+    .results p {
+      margin: 6px 0;
+      font-size: 16px;
+    }
+
+    canvas {
+      margin-top: 15px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Carbon Lifecycle Comparison</h1>
+
+    <div class="card grid">
+      <div>
+        <label>Daily KM</label>
+        <input type="number" id="dailyKm" value="30" />
+      </div>
+      <div>
+        <label>Years</label>
+        <input type="number" id="years" value="8" />
+      </div>
+      <div>
+        <label>Grid Factor</label>
+        <input type="number" step="0.1" id="gridFactor" value="0.7" />
+      </div>
+      <div style="display:flex; align-items:end;">
+        <button onclick="calculate()">Calculate</button>
+      </div>
+    </div>
+
+    <div class="card results" id="results" style="display:none;">
+      <h2>Total Emissions</h2>
+      <p id="petrolTotal"></p>
+      <p id="evTotal"></p>
+      <p id="breakEven"></p>
+    </div>
+
+    <div class="card">
+      <h2>Emission Trend</h2>
+      <canvas id="lineChart"></canvas>
+    </div>
+
+    <div class="card">
+      <h2>Yearly Comparison</h2>
+      <canvas id="barChart"></canvas>
+    </div>
+  </div>
+
+  <script>
+    const vehicles = {
+      ev: { manufacturing: 9000, battery: 4000, perKm: 0.15 },
+      petrol: { manufacturing: 7000, battery: 0, perKm: 0.19 }
+    };
+
+    let lineChart, barChart;
+
+    function calculate() {
+      const dailyKm = Number(document.getElementById("dailyKm").value);
+      const years = Number(document.getElementById("years").value);
+      const gridFactor = Number(document.getElementById("gridFactor").value);
+
+      const yearlyPetrol = dailyKm * 365 * vehicles.petrol.perKm;
+      const yearlyEV = dailyKm * 365 * vehicles.ev.perKm * gridFactor;
+
+      const petrolTotal = vehicles.petrol.manufacturing + yearlyPetrol * years;
+      const evTotal = vehicles.ev.manufacturing + vehicles.ev.battery + yearlyEV * years;
+
+      const breakEven =
+        (vehicles.petrol.manufacturing - (vehicles.ev.manufacturing + vehicles.ev.battery)) /
+        (yearlyEV - yearlyPetrol);
+
+      document.getElementById("results").style.display = "block";
+      document.getElementById("petrolTotal").innerText = `Petrol Total: ${petrolTotal.toFixed(0)} kg CO₂`;
+      document.getElementById("evTotal").innerText = `EV Total: ${evTotal.toFixed(0)} kg CO₂`;
+      document.getElementById("breakEven").innerText = `Break-even Year: ${breakEven.toFixed(2)}`;
+
+      const labels = [];
+      const petrolData = [];
+      const evData = [];
+
+      for (let y = 0; y <= years; y++) {
+        labels.push(y);
+        petrolData.push(vehicles.petrol.manufacturing + yearlyPetrol * y);
+        evData.push(vehicles.ev.manufacturing + vehicles.ev.battery + yearlyEV * y);
+      }
+
+      if (lineChart) lineChart.destroy();
+      if (barChart) barChart.destroy();
+
+      lineChart = new Chart(document.getElementById("lineChart"), {
+        type: "line",
+        data: {
+          labels,
+          datasets: [
+            { label: "Petrol", data: petrolData, borderWidth: 2 },
+            { label: "EV", data: evData, borderWidth: 2 }
+          ]
+        }
+      });
+
+      barChart = new Chart(document.getElementById("barChart"), {
+        type: "bar",
+        data: {
+          labels,
+          datasets: [
+            { label: "Petrol", data: petrolData },
+            { label: "EV", data: evData }
+          ]
+        }
+      });
+    }
+  </script>
+</body>
+</html>
