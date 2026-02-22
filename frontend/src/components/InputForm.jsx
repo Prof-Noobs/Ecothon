@@ -1,74 +1,4 @@
-// import { useState } from "react";
-// import axios from "axios";
 
-// function InputForm({ setResult }) {
-//   const [city, setCity] = useState("");
-//   const [avgKm, setAvgKm] = useState("");
-//   const [years, setYears] = useState("");
-
-//   const handleSubmit = async (e) => {
-//     e.preventDefault();
-
-//     try {
-//       const res = await axios.post("http://localhost:5000/api/calculate", {
-//         city,
-//         avgKmPerDay: Number(avgKm),
-//         years: Number(years)
-//       });
-
-//       console.log("API RESPONSE:", res.data); // check backend output
-//       setResult(res.data);
-//     } catch (error) {
-//       console.error(error);
-//       alert("Error fetching data from backend");
-//     }
-//   };
-
-//   return (
-//     <form
-//       onSubmit={handleSubmit}
-//       className="bg-white p-6 rounded-xl shadow-md max-w-md mx-auto"
-//     >
-//       <select
-//         className="w-full p-2 border rounded mb-4"
-//         value={city}
-//         onChange={(e) => setCity(e.target.value)}
-//         required
-//       >
-//         <option value="">Select City</option>
-//         <option value="Nagpur">Nagpur</option>
-//         <option value="Mumbai">Mumbai</option>
-//         <option value="Delhi">Delhi</option>
-//         <option value="Bengaluru">Bengaluru</option>
-//         <option value="Hyderabad">Hyderabad</option>
-//       </select>
-
-//       <input
-//         type="number"
-//         placeholder="Average KM per Day"
-//         className="w-full p-2 border rounded mb-4"
-//         value={avgKm}
-//         onChange={(e) => setAvgKm(e.target.value)}
-//         required
-//       />
-
-//       <input
-//         type="number"
-//         placeholder="Years of Usage"
-//         className="w-full p-2 border rounded mb-4"
-//         value={years}
-//         onChange={(e) => setYears(e.target.value)}
-//         required
-//       />
-
-//       <button className="w-full bg-blue-600 text-white p-2 rounded hover:bg-blue-700">
-//         Compare
-//       </button>
-//     </form>
-//   );
-// }
-
-// export default InputForm;
 
 import { useState } from "react";
 import axios from "axios";
@@ -144,83 +74,207 @@ function InputForm({ setResult, setRecommendation }) {
   }
 };
 
-  return (
-    <form
-      onSubmit={handleSubmit}
-      className="bg-white p-6 rounded-xl shadow-md max-w-md mx-auto"
-    >
-      {/* City Selection */}
+// return (
+//   <form
+//     onSubmit={handleSubmit}
+//     className="bg-white/5 backdrop-blur-xl border border-white/10 p-8 rounded-3xl shadow-2xl max-w-2xl mx-auto space-y-6"
+//   >
+//     {/* Section Title */}
+//     <h2 className="text-2xl font-bold text-center text-white mb-4">
+//       Enter Your Usage Details
+//     </h2>
+
+//     {/* City Selection */}
+//     <div>
+//       <label className="block text-gray-300 mb-2">Select City</label>
+//       <select
+//         className="w-full p-3 rounded-xl bg-black/40 border border-gray-600 text-white focus:outline-none focus:ring-2 focus:ring-green-500 transition"
+//         value={city}
+//         onChange={(e) => setCity(e.target.value)}
+//         required
+//       >
+//         <option value="">Choose your city</option>
+//         <option value="Nagpur">Nagpur</option>
+//         <option value="Mumbai">Mumbai</option>
+//         <option value="Delhi">Delhi</option>
+//         <option value="Bengaluru">Bengaluru</option>
+//         <option value="Hyderabad">Hyderabad</option>
+//       </select>
+//     </div>
+
+//     {/* Average KM per Day */}
+//     <div>
+//       <label className="block text-gray-300 mb-2">Average KM per Day</label>
+//       <input
+//         type="number"
+//         placeholder="e.g. 25"
+//         className="w-full p-3 rounded-xl bg-black/40 border border-gray-600 text-white focus:outline-none focus:ring-2 focus:ring-green-500 transition"
+//         value={avgKm}
+//         onChange={(e) => setAvgKm(e.target.value)}
+//         required
+//       />
+//     </div>
+
+//     {/* Years of Usage */}
+//     <div>
+//       <label className="block text-gray-300 mb-2">Years of Usage</label>
+//       <input
+//         type="number"
+//         placeholder="e.g. 5"
+//         className="w-full p-3 rounded-xl bg-black/40 border border-gray-600 text-white focus:outline-none focus:ring-2 focus:ring-green-500 transition"
+//         value={years}
+//         onChange={(e) => setYears(e.target.value)}
+//         required
+//       />
+//     </div>
+
+//     {/* Compare Button */}
+//     <button
+//       type="submit"
+//       className="w-full py-3 rounded-xl font-semibold text-white bg-gradient-to-r from-blue-500 to-indigo-600 hover:scale-105 transform transition duration-200 shadow-lg"
+//     >
+//       📊 Compare Vehicles
+//     </button>
+
+//     {/* Divider */}
+//     <div className="border-t border-gray-700 pt-6">
+//       <h3 className="text-xl font-semibold text-green-400 mb-4 text-center">
+//         Budget Range
+//       </h3>
+
+//       {/* Budget Inputs */}
+//       <div className="grid grid-cols-2 gap-4">
+//         <input
+//           type="number"
+//           value={minPrice}
+//           onChange={(e) => setMinPrice(e.target.value)}
+//           placeholder="Minimum ₹"
+//           className="p-3 rounded-xl bg-black/40 border border-gray-600 text-white focus:outline-none focus:ring-2 focus:ring-green-500 transition"
+//         />
+
+//         <input
+//           type="number"
+//           value={maxPrice}
+//           onChange={(e) => setMaxPrice(e.target.value)}
+//           placeholder="Maximum ₹"
+//           className="p-3 rounded-xl bg-black/40 border border-gray-600 text-white focus:outline-none focus:ring-2 focus:ring-green-500 transition"
+//         />
+//       </div>
+
+//       {/* Recommendation Button */}
+//       <button
+//         type="button"
+//         onClick={handleRecommendClick}
+//         className="w-full mt-6 py-3 rounded-xl font-semibold text-white bg-gradient-to-r from-green-500 to-emerald-600 hover:scale-105 transform transition duration-200 shadow-lg"
+//       >
+//         🚗 Recommend Best Vehicle
+//       </button>
+//     </div>
+//   </form>
+// );
+return (
+  <form
+    onSubmit={handleSubmit}
+    className="bg-white/70 backdrop-blur-xl border border-white/40 p-10 rounded-3xl shadow-xl space-y-8 transition-all duration-300"
+  >
+    {/* Title */}
+    <div className="text-center space-y-2">
+      <h2 className="text-2xl font-bold text-green-700">
+        Enter Your Usage Details
+      </h2>
+      <p className="text-gray-500 text-sm">
+        Provide your travel pattern to compare EV vs Petrol
+      </p>
+    </div>
+
+    {/* City */}
+    <div className="space-y-2">
+      <label className="text-gray-700 font-medium">Select City</label>
       <select
-        className="w-full p-2 border rounded mb-4"
+        className="w-full p-3 rounded-xl bg-white border border-gray-300 focus:outline-none focus:ring-2 focus:ring-green-400 focus:border-green-400 transition"
         value={city}
         onChange={(e) => setCity(e.target.value)}
         required
       >
-        <option value="">Select City</option>
+        <option value="">Choose your city</option>
         <option value="Nagpur">Nagpur</option>
         <option value="Mumbai">Mumbai</option>
         <option value="Delhi">Delhi</option>
         <option value="Bengaluru">Bengaluru</option>
         <option value="Hyderabad">Hyderabad</option>
       </select>
+    </div>
 
-      {/* Average KM per Day */}
+    {/* KM per day */}
+    <div className="space-y-2">
+      <label className="text-gray-700 font-medium">Average KM per Day</label>
       <input
         type="number"
-        placeholder="Average KM per Day"
-        className="w-full p-2 border rounded mb-4"
+        placeholder="e.g. 25"
+        className="w-full p-3 rounded-xl bg-white border border-gray-300 focus:outline-none focus:ring-2 focus:ring-green-400 focus:border-green-400 transition"
         value={avgKm}
         onChange={(e) => setAvgKm(e.target.value)}
         required
       />
+    </div>
 
-      {/* Years of Usage */}
+    {/* Years */}
+    <div className="space-y-2">
+      <label className="text-gray-700 font-medium">Years of Usage</label>
       <input
         type="number"
-        placeholder="Years of Usage"
-        className="w-full p-2 border rounded mb-4"
+        placeholder="e.g. 5"
+        className="w-full p-3 rounded-xl bg-white border border-gray-300 focus:outline-none focus:ring-2 focus:ring-green-400 focus:border-green-400 transition"
         value={years}
         onChange={(e) => setYears(e.target.value)}
         required
       />
+    </div>
 
-      {/* Buttons */}
-      <button
-        type="submit"
-        className="w-full bg-blue-600 text-white p-2 rounded hover:bg-blue-700"
-      >
-        Compare
-      </button>
+    {/* Compare Button */}
+    <button
+      type="submit"
+      className="w-full py-3 rounded-xl font-semibold text-white bg-green-600 hover:bg-green-700 transition duration-200 shadow-md hover:shadow-lg active:scale-95"
+    >
+      📊 Compare Vehicles
+    </button>
 
-    <div>
-  <label>Minimum Budget:</label>
-  <input
-    type="number"
-    value={minPrice}
-    onChange={(e) => setMinPrice(e.target.value)}
-    placeholder="Enter minimum price"
-  />
-</div>
+    {/* Divider */}
+    <div className="border-t border-gray-200 pt-6 space-y-6">
+      <h3 className="text-lg font-semibold text-green-600 text-center">
+        Budget Range
+      </h3>
 
-<div>
-  <label>Maximum Budget:</label>
-  <input
-    type="number"
-    value={maxPrice}
-    onChange={(e) => setMaxPrice(e.target.value)}
-    placeholder="Enter maximum price"
-  />
-</div>
+      {/* Budget Grid */}
+      <div className="grid grid-cols-2 gap-4">
+        <input
+          type="number"
+          value={minPrice}
+          onChange={(e) => setMinPrice(e.target.value)}
+          placeholder="Minimum ₹"
+          className="p-3 rounded-xl bg-white border border-gray-300 focus:outline-none focus:ring-2 focus:ring-green-400 focus:border-green-400 transition"
+        />
 
+        <input
+          type="number"
+          value={maxPrice}
+          onChange={(e) => setMaxPrice(e.target.value)}
+          placeholder="Maximum ₹"
+          className="p-3 rounded-xl bg-white border border-gray-300 focus:outline-none focus:ring-2 focus:ring-green-400 focus:border-green-400 transition"
+        />
+      </div>
+
+      {/* Recommend Button */}
       <button
         type="button"
-        className="w-full bg-green-600 text-white p-2 rounded hover:bg-green-700 mt-2"
         onClick={handleRecommendClick}
+        className="w-full py-3 rounded-xl font-semibold text-white bg-emerald-500 hover:bg-emerald-600 transition duration-200 shadow-md hover:shadow-lg active:scale-95"
       >
-        Recommend Best Vehicle
+        🚗 Recommend Best Vehicle
       </button>
-    </form>
-  );
+    </div>
+  </form>
+);
 }
 
 export default InputForm;
