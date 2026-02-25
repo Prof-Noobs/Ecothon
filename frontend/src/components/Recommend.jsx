@@ -18,7 +18,7 @@ function Recommend() {
     }
 
     try {
-      const res = await axios.post("http://localhost:5000/api/vehicles/recommend", {
+      const res = await axios.post("https://ecothon-prototype-1.onrender.com/api/vehicles/recommend", {
         city,
         dailyKm: Number(avgKm),
         years: Number(years),

@@ -20,7 +20,7 @@ function InputForm({ setResult, setRecommendation }) {
     }
 
     try {
-      const res = await axios.post("http://localhost:5000/api/calculate", {
+      const res = await axios.post("https://ecothon-prototype-1.onrender.com/api/calculate", {
         city,
         avgKmPerDay: Number(avgKm),
         years: Number(years),

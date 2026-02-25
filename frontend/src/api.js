@@ -1,7 +1,7 @@
 // api.js
 import axios from "axios";
 
-const BASE_URL = "http://localhost:5000/api/vehicles";
+const BASE_URL = "https://ecothon-prototype-1.onrender.com/api/vehicles";
 
 export const calculateVehicle = async (vehicleId, dailyKm, years, city) => {
   const res = await axios.post(`${BASE_URL}/calculate`, { vehicleId, dailyKm, years, city });
