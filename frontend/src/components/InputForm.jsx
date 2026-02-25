@@ -49,7 +49,7 @@ function InputForm({ setResult, setRecommendation }) {
 
   try {
     const res = await axios.post(
-      "http://localhost:5000/api/vehicles/recommend",
+      "https://ecothon-prototype-1.onrender.com/api/vehicles/recommend",
       {
         city,
         dailyKm: Number(avgKm),
